@@ -1,0 +1,24 @@
+.page-content {
+  padding-top: 4rem;
+}
+
+.page-title {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.about-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 2rem;
+  margin-top: 4rem;
+}
+
+.about-card {
+  padding: 3rem;
+}
+
+.about-card h2 {
+  color: var(--accent-blue);
+  margin-bottom: 1.5rem;
+}
