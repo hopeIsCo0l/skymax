@@ -1,60 +1,110 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Search, Database, Sparkles, Volume2 } from 'lucide-react';
+import { getProducts } from '../services/db';
+import { CATEGORIES } from '../data/defaultProducts';
 import './Catalog.css';
 
-const products = [
-  { id: 1, name: 'S-700 Reference Monitor', category: 'Studio Monitors', desc: 'Active 2-way nearfield monitor.' },
-  { id: 2, name: 'S-800 Studio Subwoofer', category: 'Studio Monitors', desc: '10-inch active studio subwoofer.' },
-  { id: 3, name: 'AeroLine Array Module', category: 'Live Sound', desc: 'High-SPL line array speaker.' },
-  { id: 4, name: 'AeroSub Dual 18"', category: 'Live Sound', desc: 'Touring-grade subwoofer system.' },
-  { id: 5, name: 'Podcaster Pro Mic', category: 'Broadcast', desc: 'Dynamic broadcast microphone.' },
-  { id: 6, name: 'Console V12', category: 'Broadcast', desc: '12-channel digital mixing console.' },
-];
-
-const categories = ['All', 'Studio Monitors', 'Live Sound', 'Broadcast'];
-
 const Catalog = () => {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [dataSource, setDataSource] = useState('local');
   const [activeCat, setActiveCat] = useState('All');
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const filtered = activeCat === 'All' ? products : products.filter(p => p.category === activeCat);
+  useEffect(() => {
+    const loadProducts = async () => {
+      setLoading(true);
+      const res = await getProducts();
+      setProducts(res.data || []);
+      setDataSource(res.source || 'local');
+      setLoading(false);
+    };
+
+    loadProducts();
+  }, []);
+
+  const filtered = products.filter((p) => {
+    const matchesCat = activeCat === 'All' || p.category === activeCat;
+    const matchesSearch =
+      p.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      (p.description || p.desc || '').toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesCat && matchesSearch;
+  });
 
   return (
     <div className="container page-content">
       <div className="section-header">
         <h1 className="page-title">Product <span className="text-gradient">Catalog</span></h1>
-        <p className="text-secondary">Explore our premium audio equipment ranges.</p>
+        <p className="text-secondary">Precision acoustic systems, reference monitors, and pro touring gear.</p>
+        
+        <div className="catalog-status-badge">
+          <Database size={14} />
+          <span>Database: <strong>{dataSource === 'supabase' ? 'Supabase Live' : 'Local / Cached'}</strong></span>
+        </div>
       </div>
 
-      <div className="catalog-filters">
-        {categories.map(cat => (
-          <button 
-            key={cat} 
-            className={`filter-btn ${activeCat === cat ? 'active' : ''}`}
-            onClick={() => setActiveCat(cat)}
-          >
-            {cat}
+      <div className="catalog-controls">
+        <div className="search-bar glass-panel">
+          <Search size={18} className="search-icon" />
+          <input
+            type="text"
+            placeholder="Search audio gear by name or specification..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+          {searchQuery && (
+            <button className="clear-search-btn" onClick={() => setSearchQuery('')}>✕</button>
+          )}
+        </div>
+
+        <div className="catalog-filters">
+          {CATEGORIES.map((cat) => (
+            <button 
+              key={cat} 
+              className={`filter-btn ${activeCat === cat ? 'active' : ''}`}
+              onClick={() => setActiveCat(cat)}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {loading ? (
+        <div className="loading-state glass-panel">
+          <Volume2 className="pulse-icon" size={36} />
+          <p>Loading sonic telemetry and hardware catalog...</p>
+        </div>
+      ) : filtered.length === 0 ? (
+        <div className="empty-state glass-panel">
+          <p>No audio products found matching &ldquo;{searchQuery}&rdquo;.</p>
+          <button className="btn btn-secondary" onClick={() => { setActiveCat('All'); setSearchQuery(''); }}>
+            Reset Filters
           </button>
-        ))}
-      </div>
-
-      <div className="product-grid">
-        {filtered.map(product => (
-          <div key={product.id} className="glass-panel product-card">
-            <div className="product-img-placeholder">
-              <span className="text-muted">Image</span>
+        </div>
+      ) : (
+        <div className="product-grid">
+          {filtered.map((product) => (
+            <div key={product.id} className="glass-panel product-card">
+              <div className="product-img-placeholder">
+                <Volume2 size={36} className="product-icon-ambient" />
+                {product.price_tag && (
+                  <span className="price-tag-badge">{product.price_tag}</span>
+                )}
+              </div>
+              <div className="product-info">
+                <span className="product-category">{product.category}</span>
+                <h3>{product.name}</h3>
+                <p className="text-secondary">{product.description || product.desc}</p>
+                <Link to={`/catalog/${product.id}`} className="view-details">
+                  View Specifications <ArrowRight size={16} />
+                </Link>
+              </div>
             </div>
-            <div className="product-info">
-              <span className="product-category">{product.category}</span>
-              <h3>{product.name}</h3>
-              <p className="text-secondary">{product.desc}</p>
-              <Link to={`/catalog/${product.id}`} className="view-details">
-                View Details <ArrowRight size={16} />
-              </Link>
-            </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };
