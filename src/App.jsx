@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { ThemeProvider } from './context/ThemeContext';
 import Layout from './components/layout/Layout';
 import Home from './pages/Home';
 import About from './pages/About';
@@ -12,25 +13,27 @@ import AdminInquiries from './pages/admin/AdminInquiries';
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        {/* Public Portal */}
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="about" element={<About />} />
-          <Route path="contact" element={<Contact />} />
-          <Route path="catalog" element={<Catalog />} />
-          <Route path="catalog/:id" element={<ProductDetail />} />
-        </Route>
+    <ThemeProvider>
+      <Router>
+        <Routes>
+          {/* Public Portal */}
+          <Route path="/" element={<Layout />}>
+            <Route index element={<Home />} />
+            <Route path="about" element={<About />} />
+            <Route path="contact" element={<Contact />} />
+            <Route path="catalog" element={<Catalog />} />
+            <Route path="catalog/:id" element={<ProductDetail />} />
+          </Route>
 
-        {/* Admin Dashboard */}
-        <Route path="/admin" element={<AdminLayout />}>
-          <Route index element={<AdminDashboard />} />
-          <Route path="products" element={<AdminProducts />} />
-          <Route path="inquiries" element={<AdminInquiries />} />
-        </Route>
-      </Routes>
-    </Router>
+          {/* Admin Dashboard */}
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<AdminDashboard />} />
+            <Route path="products" element={<AdminProducts />} />
+            <Route path="inquiries" element={<AdminInquiries />} />
+          </Route>
+        </Routes>
+      </Router>
+    </ThemeProvider>
   );
 }
 

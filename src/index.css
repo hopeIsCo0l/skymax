@@ -1,30 +1,77 @@
-:root {
-  /* Sonic Glass Theme Variables */
+:root,
+[data-theme="dark"] {
+  /* Sonic Glass Theme Variables - Dark Mode */
   --bg-dark: #050508;
   --bg-darker: #020204;
-  --bg-panel: rgba(15, 15, 25, 0.6);
-  --bg-panel-hover: rgba(25, 25, 40, 0.8);
+  --bg-panel: rgba(15, 15, 25, 0.65);
+  --bg-panel-hover: rgba(25, 25, 40, 0.85);
+  --bg-card: rgba(18, 18, 30, 0.7);
+  --bg-input: rgba(0, 0, 0, 0.35);
   
   --accent-blue: #00f0ff;
+  --accent-blue-hover: #33f3ff;
   --accent-magenta: #ff00ea;
+  --accent-magenta-hover: #ff33ee;
   --accent-purple: #8a2be2;
+  --accent-green: #00ff88;
   
-  --text-primary: #ffffff;
-  --text-secondary: #a0a0b0;
-  --text-muted: #606070;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
   
   --glass-border: rgba(255, 255, 255, 0.08);
-  --glass-border-highlight: rgba(0, 240, 255, 0.3);
+  --glass-border-highlight: rgba(0, 240, 255, 0.35);
+  --glass-border-magenta: rgba(255, 0, 234, 0.35);
   
   --shadow-neon: 0 0 20px rgba(0, 240, 255, 0.2);
   --shadow-neon-magenta: 0 0 20px rgba(255, 0, 234, 0.2);
+  --shadow-card: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
   
+  --bg-ambient-1: rgba(0, 240, 255, 0.035);
+  --bg-ambient-2: rgba(255, 0, 234, 0.035);
+  --placeholder-bg: rgba(0, 0, 0, 0.3);
+  --badge-replied-bg: rgba(255, 255, 255, 0.1);
+  --nav-bg: rgba(5, 5, 8, 0.75);
+
   --transition-fast: 0.2s ease;
-  --transition-smooth: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  
-  /* Layout */
+  --transition-smooth: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   --nav-height: 80px;
   --container-width: 1200px;
+}
+
+[data-theme="light"] {
+  /* Sonic Glass Theme Variables - Light Mode (Frosted Acoustic) */
+  --bg-dark: #f8fafc;
+  --bg-darker: #eef2f6;
+  --bg-panel: rgba(255, 255, 255, 0.75);
+  --bg-panel-hover: rgba(255, 255, 255, 0.95);
+  --bg-card: rgba(255, 255, 255, 0.85);
+  --bg-input: rgba(255, 255, 255, 0.9);
+  
+  --accent-blue: #0284c7;
+  --accent-blue-hover: #0369a1;
+  --accent-magenta: #c026d3;
+  --accent-magenta-hover: #a21caf;
+  --accent-purple: #7c3aed;
+  --accent-green: #059669;
+  
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+  
+  --glass-border: rgba(15, 23, 42, 0.08);
+  --glass-border-highlight: rgba(2, 132, 199, 0.4);
+  --glass-border-magenta: rgba(192, 38, 211, 0.4);
+  
+  --shadow-neon: 0 8px 25px rgba(2, 132, 199, 0.15);
+  --shadow-neon-magenta: 0 8px 25px rgba(192, 38, 211, 0.15);
+  --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
+  
+  --bg-ambient-1: rgba(2, 132, 199, 0.06);
+  --bg-ambient-2: rgba(192, 38, 211, 0.05);
+  --placeholder-bg: rgba(0, 0, 0, 0.04);
+  --badge-replied-bg: rgba(0, 0, 0, 0.06);
+  --nav-bg: rgba(248, 250, 252, 0.8);
 }
 
 * {
@@ -40,10 +87,10 @@ body {
   line-height: 1.6;
   overflow-x: hidden;
   min-height: 100vh;
-  /* Subtle background gradient representing sound waves/ambient light */
+  transition: background-color var(--transition-smooth), color var(--transition-smooth);
   background-image: 
-    radial-gradient(circle at 15% 50%, rgba(0, 240, 255, 0.03) 0%, transparent 50%),
-    radial-gradient(circle at 85% 30%, rgba(255, 0, 234, 0.03) 0%, transparent 50%);
+    radial-gradient(circle at 15% 50%, var(--bg-ambient-1) 0%, transparent 50%),
+    radial-gradient(circle at 85% 30%, var(--bg-ambient-2) 0%, transparent 50%);
   background-attachment: fixed;
 }
 
@@ -73,10 +120,12 @@ button {
 
 .glass-panel {
   background: var(--bg-panel);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   border: 1px solid var(--glass-border);
   border-radius: 16px;
+  box-shadow: var(--shadow-card);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-smooth);
 }
 
 .glass-panel:hover {
@@ -96,6 +145,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 600;
   line-height: 1.2;
   margin-bottom: 1rem;
+  color: var(--text-primary);
 }
 
 /* Scrollbar */

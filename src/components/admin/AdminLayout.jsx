@@ -1,5 +1,6 @@
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { LayoutDashboard, Package, MessageSquare, LogOut, Cloud } from 'lucide-react';
+import ThemeToggle from '../ui/ThemeToggle';
 import './AdminLayout.css';
 
 const AdminLayout = () => {
@@ -33,9 +34,12 @@ const AdminLayout = () => {
       <main className="admin-main">
         <header className="admin-header glass-panel">
           <h2>Admin Portal</h2>
-          <div className="admin-profile">
-            <div className="avatar">A</div>
-            <span>Admin User</span>
+          <div className="admin-header-actions">
+            <ThemeToggle />
+            <div className="admin-profile">
+              <div className="avatar">A</div>
+              <span>Admin User</span>
+            </div>
           </div>
         </header>
         <div className="admin-content">

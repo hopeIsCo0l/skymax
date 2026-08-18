@@ -20,6 +20,7 @@
 
 .info-icon {
   color: var(--accent-magenta);
+  flex-shrink: 0;
 }
 
 .contact-form {
@@ -38,24 +39,36 @@
 .form-group label {
   font-weight: 500;
   color: var(--text-secondary);
+  font-size: 0.9rem;
 }
 
 .form-group input,
 .form-group textarea {
-  background: rgba(0, 0, 0, 0.2);
+  background: var(--bg-input);
   border: 1px solid var(--glass-border);
-  padding: 1rem;
-  border-radius: 8px;
+  padding: 1rem 1.2rem;
+  border-radius: 10px;
   color: var(--text-primary);
   font-family: inherit;
-  transition: border-color var(--transition-fast);
+  font-size: 1rem;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast), background var(--transition-fast);
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: var(--text-muted);
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
   outline: none;
   border-color: var(--accent-blue);
-  box-shadow: 0 0 10px rgba(0, 240, 255, 0.1);
+  box-shadow: 0 0 12px rgba(0, 240, 255, 0.2);
+}
+
+[data-theme="light"] .form-group input:focus,
+[data-theme="light"] .form-group textarea:focus {
+  box-shadow: 0 0 12px rgba(2, 132, 199, 0.2);
 }
 
 @media (max-width: 900px) {

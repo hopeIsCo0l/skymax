@@ -24,6 +24,7 @@
   font-weight: 700;
   margin-bottom: 1.5rem;
   letter-spacing: -1px;
+  line-height: 1.1;
 }
 
 .hero-subtitle {
@@ -36,6 +37,7 @@
 .hero-cta {
   display: flex;
   gap: 1.5rem;
+  flex-wrap: wrap;
 }
 
 .btn {
@@ -44,33 +46,44 @@
   justify-content: center;
   gap: 0.8rem;
   padding: 1rem 2rem;
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1px;
   border-radius: 8px;
   transition: all var(--transition-fast);
+  cursor: pointer;
 }
 
 .btn-primary {
   background: rgba(0, 240, 255, 0.1);
-  border-color: var(--accent-blue);
+  border: 1px solid var(--accent-blue);
   color: var(--accent-blue);
   box-shadow: var(--shadow-neon);
 }
 
+[data-theme="light"] .btn-primary {
+  background: rgba(2, 132, 199, 0.1);
+}
+
 .btn-primary:hover {
   background: var(--accent-blue);
-  color: var(--bg-dark);
+  color: #ffffff;
+  box-shadow: 0 0 25px rgba(0, 240, 255, 0.4);
+}
+
+[data-theme="light"] .btn-primary:hover {
+  box-shadow: 0 6px 20px rgba(2, 132, 199, 0.35);
 }
 
 .btn-secondary {
   color: var(--text-primary);
+  border: 1px solid var(--glass-border);
 }
 
 .btn-secondary:hover {
   border-color: var(--text-primary);
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(128, 128, 128, 0.08);
 }
 
 /* Soundwave Animation */
@@ -90,6 +103,10 @@
   opacity: 0.15;
   z-index: 1;
   pointer-events: none;
+}
+
+[data-theme="light"] .soundwave-graphic {
+  opacity: 0.12;
 }
 
 .wave {
@@ -134,16 +151,20 @@
   flex-direction: column;
   align-items: center;
   gap: 1.5rem;
-  transition: transform var(--transition-smooth);
+  transition: transform var(--transition-smooth), border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .feature-card:hover {
-  transform: translateY(-10px);
+  transform: translateY(-8px);
 }
 
 .feature-icon {
   color: var(--accent-magenta);
   filter: drop-shadow(0 0 10px rgba(255, 0, 234, 0.3));
+}
+
+[data-theme="light"] .feature-icon {
+  filter: drop-shadow(0 0 8px rgba(192, 38, 211, 0.25));
 }
 
 @media (max-width: 768px) {

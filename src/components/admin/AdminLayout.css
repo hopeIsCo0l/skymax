@@ -37,23 +37,31 @@
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 1rem;
+  padding: 0.85rem 1rem;
   color: var(--text-secondary);
   border-radius: 8px;
+  transition: all var(--transition-fast);
+  font-weight: 500;
 }
 
 .admin-nav a:hover {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(128, 128, 128, 0.08);
   color: var(--text-primary);
 }
 
 .admin-nav a.active {
-  background: rgba(0, 240, 255, 0.1);
+  background: rgba(0, 240, 255, 0.12);
+  color: var(--accent-blue);
+  font-weight: 600;
+}
+
+[data-theme="light"] .admin-nav a.active {
+  background: rgba(2, 132, 199, 0.12);
   color: var(--accent-blue);
 }
 
 .admin-footer {
-  padding: 2rem;
+  padding: 1.5rem;
   border-top: 1px solid var(--glass-border);
 }
 
@@ -62,6 +70,8 @@
   align-items: center;
   gap: 1rem;
   color: var(--text-muted);
+  font-size: 0.9rem;
+  transition: color var(--transition-fast);
 }
 
 .back-home:hover {
@@ -88,22 +98,32 @@
   border-right: none;
 }
 
+.admin-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
 .admin-profile {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.8rem;
+  font-weight: 500;
+  color: var(--text-primary);
 }
 
 .avatar {
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   background: var(--accent-blue);
-  color: var(--bg-dark);
+  color: #ffffff;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 700;
+  font-size: 0.9rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .admin-content {

@@ -24,6 +24,7 @@
   color: var(--text-secondary);
   font-size: 1rem;
   margin: 0;
+  font-weight: 500;
 }
 
 .text-blue { color: var(--accent-blue); }
@@ -34,6 +35,7 @@
   font-size: 2.5rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
+  color: var(--text-primary);
 }
 
 .stat-change {
@@ -44,7 +46,8 @@
 }
 
 .stat-change.positive {
-  color: #00ff88;
+  color: var(--accent-green);
+  font-weight: 600;
 }
 
 .dashboard-recent {
@@ -69,22 +72,34 @@
 
 .admin-table th {
   color: var(--text-secondary);
-  font-weight: 500;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .badge {
+  display: inline-block;
   padding: 0.25rem 0.75rem;
-  border-radius: 12px;
+  border-radius: 9999px;
   font-size: 0.8rem;
   font-weight: 600;
 }
 
 .badge-new {
-  background: rgba(0, 240, 255, 0.2);
+  background: rgba(0, 240, 255, 0.15);
   color: var(--accent-blue);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+}
+
+[data-theme="light"] .badge-new {
+  background: rgba(2, 132, 199, 0.12);
+  color: var(--accent-blue);
+  border: 1px solid rgba(2, 132, 199, 0.3);
 }
 
 .badge-replied {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--badge-replied-bg);
   color: var(--text-secondary);
+  border: 1px solid var(--glass-border);
 }

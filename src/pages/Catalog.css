@@ -7,12 +7,14 @@
 }
 
 .filter-btn {
-  padding: 0.5rem 1.5rem;
-  border-radius: 20px;
-  background: rgba(255, 255, 255, 0.05);
+  padding: 0.6rem 1.5rem;
+  border-radius: 9999px;
+  background: var(--bg-panel);
   border: 1px solid var(--glass-border);
   color: var(--text-secondary);
+  font-weight: 500;
   transition: all var(--transition-fast);
+  cursor: pointer;
 }
 
 .filter-btn:hover {
@@ -21,10 +23,16 @@
 }
 
 .filter-btn.active {
-  background: rgba(0, 240, 255, 0.1);
+  background: var(--accent-blue);
   border-color: var(--accent-blue);
+  color: #ffffff;
+  box-shadow: 0 4px 15px rgba(0, 240, 255, 0.3);
+}
+
+[data-theme="dark"] .filter-btn.active {
+  background: rgba(0, 240, 255, 0.15);
   color: var(--accent-blue);
-  box-shadow: 0 0 10px rgba(0, 240, 255, 0.2);
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.25);
 }
 
 .product-grid {
@@ -37,16 +45,16 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  transition: transform var(--transition-fast);
+  transition: transform var(--transition-smooth), border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
 
 .product-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-6px);
 }
 
 .product-img-placeholder {
   height: 200px;
-  background: rgba(0, 0, 0, 0.3);
+  background: var(--placeholder-bg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -64,8 +72,9 @@
 .product-category {
   font-size: 0.8rem;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 1.5px;
   color: var(--accent-magenta);
+  font-weight: 600;
 }
 
 .view-details {
@@ -74,9 +83,10 @@
   align-items: center;
   gap: 0.5rem;
   color: var(--accent-blue);
-  font-weight: 500;
+  font-weight: 600;
+  transition: gap var(--transition-fast), color var(--transition-fast);
 }
 
 .view-details:hover {
-  text-shadow: 0 0 8px rgba(0, 240, 255, 0.5);
+  gap: 0.8rem;
 }
