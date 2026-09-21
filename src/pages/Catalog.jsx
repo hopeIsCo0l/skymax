@@ -37,8 +37,6 @@ const Catalog = () => {
       <div className="section-header">
         <h1 className="page-title">Product <span className="text-gradient">Catalog</span></h1>
         <p className="text-secondary">Precision acoustic systems, reference monitors, and pro touring gear.</p>
-        
-
       </div>
 
       <div className="catalog-controls">
