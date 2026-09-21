@@ -1,4 +1,4 @@
-import { Cloud } from 'lucide-react';
+import Logo from '../ui/Logo';
 import './Footer.css';
 
 const Footer = () => {
@@ -6,9 +6,10 @@ const Footer = () => {
     <footer className="footer glass-panel">
       <div className="container footer-content">
         <div className="footer-brand">
-          <Cloud className="footer-icon" size={28} />
-          <span className="brand-text">SkyMax <span className="text-gradient">PLC</span></span>
-          <p className="footer-desc">Premium Sound Web Platform. High-fidelity audio solutions and equipment.</p>
+          <Logo size="compact" showTagline={false} />
+          <p className="footer-desc" style={{ marginTop: '0.85rem' }}>
+            Premium Sound Web Platform. High-fidelity audio engineering, acoustics, and broadcast hardware.
+          </p>
         </div>
         <div className="footer-links">
           <h3>Quick Links</h3>
@@ -16,12 +17,14 @@ const Footer = () => {
             <li><a href="/catalog">Catalog</a></li>
             <li><a href="/about">About Us</a></li>
             <li><a href="/contact">Contact</a></li>
+            <li><a href="/admin" style={{ opacity: 0.65 }}>Admin Portal</a></li>
           </ul>
         </div>
         <div className="footer-contact">
           <h3>Contact Us</h3>
           <p>info@skymaxplc.com</p>
-          <p>+1 (555) 019-2837</p>
+          <p>+251 11 662 8930</p>
+          <p className="text-secondary" style={{ fontSize: '0.85rem' }}>Bole, Addis Ababa, Ethiopia</p>
         </div>
       </div>
       <div className="footer-bottom">

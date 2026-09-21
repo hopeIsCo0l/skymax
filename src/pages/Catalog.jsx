@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Search, Database, Sparkles, Volume2 } from 'lucide-react';
+import { ArrowRight, Search, Sparkles, Volume2 } from 'lucide-react';
 import { getProducts } from '../services/db';
 import { CATEGORIES } from '../data/defaultProducts';
 import './Catalog.css';
@@ -38,10 +38,7 @@ const Catalog = () => {
         <h1 className="page-title">Product <span className="text-gradient">Catalog</span></h1>
         <p className="text-secondary">Precision acoustic systems, reference monitors, and pro touring gear.</p>
         
-        <div className="catalog-status-badge">
-          <Database size={14} />
-          <span>Database: <strong>{dataSource === 'supabase' ? 'Supabase Live' : 'Local / Cached'}</strong></span>
-        </div>
+
       </div>
 
       <div className="catalog-controls">
@@ -88,7 +85,19 @@ const Catalog = () => {
           {filtered.map((product) => (
             <div key={product.id} className="glass-panel product-card">
               <div className="product-img-placeholder">
-                <Volume2 size={36} className="product-icon-ambient" />
+                {product.image_url ? (
+                  <img
+                    src={product.image_url}
+                    alt={product.name}
+                    className="product-card-img"
+                    onError={(e) => {
+                      e.target.onerror = null;
+                      e.target.style.display = 'none';
+                    }}
+                  />
+                ) : (
+                  <Volume2 size={36} className="product-icon-ambient" />
+                )}
                 {product.price_tag && (
                   <span className="price-tag-badge">{product.price_tag}</span>
                 )}

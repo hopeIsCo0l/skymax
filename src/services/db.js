@@ -8,7 +8,17 @@ const LOCAL_INQUIRIES_KEY = 'skymax_local_inquiries';
 const getStoredProducts = () => {
   try {
     const data = localStorage.getItem(LOCAL_PRODUCTS_KEY);
-    return data ? JSON.parse(data) : DEFAULT_PRODUCTS;
+    if (!data) return DEFAULT_PRODUCTS;
+    const parsed = JSON.parse(data);
+    return parsed.map((p) => {
+      if (!p.image_url) {
+        const def = DEFAULT_PRODUCTS.find((d) => d.id === p.id);
+        if (def && def.image_url) {
+          return { ...p, image_url: def.image_url };
+        }
+      }
+      return p;
+    });
   } catch {
     return DEFAULT_PRODUCTS;
   }

@@ -5,6 +5,7 @@ export const DEFAULT_PRODUCTS = [
     category: 'Studio Monitors',
     description: 'Active 2-way coaxial studio reference monitor with linear phase response, beryllium tweeter, and custom class-D bi-amplification.',
     price_tag: 'Studio Grade',
+    image_url: 'https://images.unsplash.com/photo-1545454675-3531b543be5d?auto=format&fit=crop&w=800&q=80',
     is_featured: true,
     features: [
       'Ultra-flat 35Hz - 22kHz frequency response',
@@ -25,6 +26,7 @@ export const DEFAULT_PRODUCTS = [
     category: 'Live Sound',
     description: 'Dual 10-inch active line array element engineered for large venue acoustic throw and articulate vocal intelligibility.',
     price_tag: 'Touring System',
+    image_url: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=800&q=80',
     is_featured: true,
     features: [
       'Dual 10-inch neodymium low-frequency drivers',
@@ -45,6 +47,7 @@ export const DEFAULT_PRODUCTS = [
     category: 'Microphones',
     description: 'Large-diaphragm multi-pattern vacuum tube condenser microphone delivering warmth, rich harmonics, and silky top-end detail.',
     price_tag: 'Broadcast & Studio',
+    image_url: 'https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=800&q=80',
     is_featured: true,
     features: [
       'Hand-selected dual 1-inch gold-sputtered capsule',
@@ -65,6 +68,7 @@ export const DEFAULT_PRODUCTS = [
     category: 'DSP & Mixers',
     description: '8-in / 8-out networked digital signal processor featuring FIR acoustic filtering, auto-mixing, and Dante audio over IP.',
     price_tag: 'System Node',
+    image_url: 'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=800&q=80',
     is_featured: false,
     features: [
       '32-bit floating point 96kHz DSP engine',
@@ -85,6 +89,7 @@ export const DEFAULT_PRODUCTS = [
     category: 'Live Sound',
     description: 'High-excursion 18-inch vented concert subwoofer delivering thunderous low-end impact down to 28Hz.',
     price_tag: 'Sub-Bass',
+    image_url: 'https://images.unsplash.com/photo-1520523839898-50712704044b?auto=format&fit=crop&w=800&q=80',
     is_featured: true,
     features: [
       '18-inch neodymium woofer with 4.5-inch voice coil',
@@ -105,6 +110,7 @@ export const DEFAULT_PRODUCTS = [
     category: 'Acoustic Solutions',
     description: 'Two-dimensional quadratic residue sound diffuser engineered to disperse flutter echoes while retaining natural room acoustics.',
     price_tag: 'Architectural',
+    image_url: 'https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=800&q=80',
     is_featured: false,
     features: [
       'QRD 2D mathematical scatter algorithm',

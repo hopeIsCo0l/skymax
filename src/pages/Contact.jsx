@@ -84,14 +84,14 @@ const Contact = () => {
             <Phone className="info-icon" size={32} />
             <div>
               <h3>Acoustics Hotline</h3>
-              <p className="text-secondary">+1 (555) 019-2837</p>
+              <p className="text-secondary">+251 11 662 8930 / +251 91 124 5678</p>
             </div>
           </div>
           <div className="glass-panel info-card">
             <MapPin className="info-icon" size={32} />
             <div>
-              <h3>Global Headquarters</h3>
-              <p className="text-secondary">SkyMax Sound Labs, 404 Frequency Ave<br/>Acoustics Innovation Quarter</p>
+              <h3>Headquarters & Sound Labs</h3>
+              <p className="text-secondary">SkyMax Sound Labs, Africa Avenue (Bole Road)<br/>Bole Sub-City, Addis Ababa, Ethiopia</p>
             </div>
           </div>
         </div>
@@ -113,7 +113,7 @@ const Contact = () => {
             <div className="contact-alert error glass-panel">
               <AlertCircle size={20} className="alert-icon-error" />
               <div>
-                <strong>Transmission Note:</strong>
+                <strong>Transmission Failed</strong>
                 <p>{error}</p>
               </div>
             </div>
@@ -124,7 +124,7 @@ const Contact = () => {
             <input
               type="text"
               required
-              placeholder="e.g. Jane Doe"
+              placeholder="e.g. Dr. Abebe Bikila"
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             />
@@ -136,7 +136,7 @@ const Contact = () => {
               <input
                 type="email"
                 required
-                placeholder="jane@studio.com"
+                placeholder="name@organization.com"
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
               />
@@ -145,7 +145,7 @@ const Contact = () => {
               <label>Phone / WhatsApp</label>
               <input
                 type="tel"
-                placeholder="+1 (555) 000-0000"
+                placeholder="+251 91 123 4567"
                 value={formData.phone}
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
               />

@@ -117,13 +117,25 @@
 }
 
 .product-img-placeholder {
-  height: 200px;
+  height: 220px;
   background: var(--placeholder-bg);
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   border-bottom: 1px solid var(--glass-border);
+  overflow: hidden;
+}
+
+.product-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--transition-smooth);
+}
+
+.product-card:hover .product-card-img {
+  transform: scale(1.08);
 }
 
 .product-icon-ambient {

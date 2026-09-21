@@ -1,0 +1,184 @@
+.logo-link-anchor {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  outline: none;
+}
+
+.skymax-brand-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  user-select: none;
+  cursor: pointer;
+  transition: transform var(--transition-fast);
+}
+
+.skymax-brand-logo:hover {
+  transform: translateY(-1px);
+}
+
+/* Symbol & Icon Styling */
+.logo-symbol-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.logo-symbol-svg {
+  width: 42px;
+  height: 33px;
+  overflow: visible;
+  filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.45));
+  transition: filter var(--transition-smooth), transform var(--transition-smooth);
+}
+
+.skymax-brand-logo:hover .logo-symbol-svg {
+  filter: drop-shadow(0 0 16px rgba(0, 240, 255, 0.7)) drop-shadow(0 0 25px rgba(255, 0, 234, 0.4));
+  transform: scale(1.05);
+}
+
+/* Soundbar animation */
+.logo-soundbar {
+  transform-origin: center bottom;
+  animation: acousticPulse 2s ease-in-out infinite alternate;
+}
+
+.sb-1 { animation-delay: 0.1s; }
+.sb-2 { animation-delay: 0.35s; }
+.sb-3 { animation-delay: 0.6s; }
+.sb-4 { animation-delay: 0.25s; }
+
+.skymax-brand-logo:hover .logo-soundbar {
+  animation-duration: 0.9s;
+}
+
+@keyframes acousticPulse {
+  0% {
+    transform: scaleY(0.7);
+    opacity: 0.75;
+  }
+  50% {
+    transform: scaleY(1.15);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleY(0.85);
+    opacity: 0.9;
+  }
+}
+
+/* Typography Styling */
+.logo-typography {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  line-height: 1;
+}
+
+.logo-name-row {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.logo-name-sky {
+  font-size: 1.55rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: var(--text-primary);
+  font-family: inherit;
+}
+
+.logo-name-max {
+  font-size: 1.55rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  background: linear-gradient(135deg, var(--accent-blue) 0%, #38bdf8 50%, var(--accent-magenta) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 20px rgba(0, 240, 255, 0.35);
+  font-family: inherit;
+}
+
+[data-theme="light"] .logo-name-max {
+  background: linear-gradient(135deg, #0284c7 0%, #0369a1 60%, #9333ea 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
+}
+
+.logo-badge-plc {
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 0.2rem 0.45rem;
+  border-radius: 6px;
+  background: rgba(0, 240, 255, 0.12);
+  border: 1px solid rgba(0, 240, 255, 0.35);
+  color: var(--accent-blue);
+  letter-spacing: 1px;
+  margin-left: 0.15rem;
+  text-transform: uppercase;
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.15);
+  transition: all var(--transition-fast);
+}
+
+[data-theme="light"] .logo-badge-plc {
+  background: rgba(2, 132, 199, 0.1);
+  border-color: rgba(2, 132, 199, 0.3);
+  color: #0284c7;
+  box-shadow: none;
+}
+
+.skymax-brand-logo:hover .logo-badge-plc {
+  background: rgba(255, 0, 234, 0.15);
+  border-color: rgba(255, 0, 234, 0.4);
+  color: var(--accent-magenta);
+  box-shadow: 0 0 12px rgba(255, 0, 234, 0.25);
+}
+
+.logo-subtext {
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 2.2px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+  transition: color var(--transition-fast);
+}
+
+.skymax-brand-logo:hover .logo-subtext {
+  color: var(--accent-blue);
+}
+
+/* Sizing Modifiers */
+.size-large .logo-symbol-svg {
+  width: 52px;
+  height: 40px;
+}
+
+.size-large .logo-name-sky,
+.size-large .logo-name-max {
+  font-size: 1.85rem;
+}
+
+.size-large .logo-subtext {
+  font-size: 0.68rem;
+  letter-spacing: 2.8px;
+}
+
+.size-compact .logo-symbol-svg {
+  width: 34px;
+  height: 27px;
+}
+
+.size-compact .logo-name-sky,
+.size-compact .logo-name-max {
+  font-size: 1.25rem;
+}
+
+.size-compact .logo-subtext {
+  display: none;
+}

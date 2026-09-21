@@ -1,8 +1,17 @@
-import { useState, useEffect } from 'react';
-import { Plus, Edit2, Trash2, X, Check, Search, Box } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { Plus, Edit2, Trash2, X, Check, Search, Box, UploadCloud, Link as LinkIcon, Sparkles, Image as ImageIcon } from 'lucide-react';
 import { getProducts, createProduct, updateProduct, deleteProduct } from '../../services/db';
 import { CATEGORIES } from '../../data/defaultProducts';
 import './AdminDashboard.css';
+
+const PRESET_IMAGES = [
+  { label: 'Studio Monitor', url: 'https://images.unsplash.com/photo-1545454675-3531b543be5d?auto=format&fit=crop&w=800&q=80' },
+  { label: 'Line Array', url: 'https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=800&q=80' },
+  { label: 'Microphone', url: 'https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=800&q=80' },
+  { label: 'DSP Mixer', url: 'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=800&q=80' },
+  { label: 'Subwoofer', url: 'https://images.unsplash.com/photo-1520523839898-50712704044b?auto=format&fit=crop&w=800&q=80' },
+  { label: 'Acoustic Panel', url: 'https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=800&q=80' },
+];
 
 const AdminProducts = () => {
   const [products, setProducts] = useState([]);
@@ -10,12 +19,15 @@ const AdminProducts = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [editingId, setEditingId] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const [imageInputTab, setImageInputTab] = useState('url');
+  const fileInputRef = useRef(null);
 
   const [formData, setFormData] = useState({
     name: '',
     category: 'Studio Monitors',
     description: '',
     price_tag: 'Studio Grade',
+    image_url: '',
     features: '',
     specifications: ''
   });
@@ -33,11 +45,13 @@ const AdminProducts = () => {
 
   const openAddModal = () => {
     setEditingId(null);
+    setImageInputTab('url');
     setFormData({
       name: '',
       category: 'Studio Monitors',
       description: '',
       price_tag: 'Studio Grade',
+      image_url: '',
       features: '',
       specifications: ''
     });
@@ -46,6 +60,7 @@ const AdminProducts = () => {
 
   const openEditModal = (product) => {
     setEditingId(product.id);
+    setImageInputTab('url');
     const feats = Array.isArray(product.features)
       ? product.features.join('\n')
       : typeof product.features === 'string'
@@ -61,10 +76,26 @@ const AdminProducts = () => {
       category: product.category || 'Studio Monitors',
       description: product.description || product.desc || '',
       price_tag: product.price_tag || 'Studio Grade',
+      image_url: product.image_url || '',
       features: feats,
       specifications: specs
     });
     setModalOpen(true);
+  };
+
+  const handleFileUpload = (e) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) {
+        alert('Image size exceeds 5MB limit.');
+        return;
+      }
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormData((prev) => ({ ...prev, image_url: reader.result }));
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const handleSave = async (e) => {
@@ -90,6 +121,7 @@ const AdminProducts = () => {
       category: formData.category,
       description: formData.description,
       price_tag: formData.price_tag,
+      image_url: formData.image_url,
       features: featuresArray,
       specifications: specsObject
     };
@@ -152,7 +184,7 @@ const AdminProducts = () => {
           <table className="admin-table">
             <thead>
               <tr>
-                <th>Product Name</th>
+                <th>Product</th>
                 <th>Category</th>
                 <th>Tier / Price Tag</th>
                 <th>Actions</th>
@@ -162,9 +194,36 @@ const AdminProducts = () => {
               {filtered.map((product) => (
                 <tr key={product.id}>
                   <td>
-                    <strong>{product.name}</strong>
-                    <div className="text-secondary" style={{ fontSize: '0.82rem', maxWidth: '380px', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
-                      {product.description || product.desc}
+                    <div className="admin-product-cell">
+                      <div className="admin-product-thumb">
+                        {product.image_url ? (
+                          <img
+                            src={product.image_url}
+                            alt={product.name}
+                            onError={(e) => {
+                              e.target.onerror = null;
+                              e.target.style.display = 'none';
+                            }}
+                          />
+                        ) : (
+                          <Box size={20} />
+                        )}
+                      </div>
+                      <div>
+                        <strong>{product.name}</strong>
+                        <div
+                          className="text-secondary"
+                          style={{
+                            fontSize: '0.82rem',
+                            maxWidth: '340px',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap'
+                          }}
+                        >
+                          {product.description || product.desc}
+                        </div>
+                      </div>
                     </div>
                   </td>
                   <td>
@@ -242,6 +301,104 @@ const AdminProducts = () => {
                     onChange={(e) => setFormData({ ...formData, price_tag: e.target.value })}
                   />
                 </div>
+              </div>
+
+              {/* Product Image Section */}
+              <div className="form-group image-field-section">
+                <label style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span>Product Image</span>
+                  <span className="text-secondary" style={{ fontSize: '0.78rem' }}>Optional</span>
+                </label>
+
+                {formData.image_url ? (
+                  <div className="image-preview-box">
+                    <div className="image-preview-img-wrap">
+                      <img
+                        src={formData.image_url}
+                        alt="Preview"
+                        onError={(e) => {
+                          e.target.onerror = null;
+                          e.target.style.display = 'none';
+                        }}
+                      />
+                    </div>
+                    <div className="image-preview-info">
+                      <div style={{ fontWeight: 600, fontSize: '0.88rem', marginBottom: '0.2rem' }}>
+                        Image Ready
+                      </div>
+                      <div className="image-preview-url">
+                        {formData.image_url.startsWith('data:') ? 'Local Image File (Uploaded)' : formData.image_url}
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      className="remove-image-btn"
+                      onClick={() => setFormData({ ...formData, image_url: '' })}
+                    >
+                      <X size={14} /> Remove
+                    </button>
+                  </div>
+                ) : (
+                  <div>
+                    <div className="image-input-type-toggle">
+                      <button
+                        type="button"
+                        className={`input-tab-btn ${imageInputTab === 'url' ? 'active' : ''}`}
+                        onClick={() => setImageInputTab('url')}
+                      >
+                        <LinkIcon size={14} /> Direct Image URL
+                      </button>
+                      <button
+                        type="button"
+                        className={`input-tab-btn ${imageInputTab === 'upload' ? 'active' : ''}`}
+                        onClick={() => setImageInputTab('upload')}
+                      >
+                        <UploadCloud size={14} /> Upload Local File
+                      </button>
+                    </div>
+
+                    {imageInputTab === 'url' ? (
+                      <input
+                        type="url"
+                        placeholder="https://images.unsplash.com/... or https://cdn.site.com/item.jpg"
+                        value={formData.image_url}
+                        onChange={(e) => setFormData({ ...formData, image_url: e.target.value })}
+                      />
+                    ) : (
+                      <div
+                        className="file-dropzone"
+                        onClick={() => fileInputRef.current?.click()}
+                      >
+                        <UploadCloud size={28} />
+                        <p>Click to select an image from your computer</p>
+                        <span>Supports PNG, JPG, WebP, SVG up to 5MB</span>
+                        <input
+                          type="file"
+                          ref={fileInputRef}
+                          accept="image/*"
+                          style={{ display: 'none' }}
+                          onChange={handleFileUpload}
+                        />
+                      </div>
+                    )}
+
+                    <div className="image-presets-row">
+                      <span className="text-secondary" style={{ fontSize: '0.75rem', display: 'inline-flex', alignItems: 'center', gap: '0.25rem' }}>
+                        <Sparkles size={12} /> Quick Presets:
+                      </span>
+                      {PRESET_IMAGES.map((p) => (
+                        <button
+                          key={p.label}
+                          type="button"
+                          className="preset-chip"
+                          onClick={() => setFormData({ ...formData, image_url: p.url })}
+                        >
+                          {p.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
 
               <div className="form-group">

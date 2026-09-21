@@ -63,10 +63,25 @@ const ProductDetail = () => {
       
       <div className="product-detail-grid">
         <div className="product-gallery glass-panel">
-          <div className="gallery-inner">
-            <Volume2 size={80} className="detail-gear-icon" />
-            <span className="gallery-badge">{product.price_tag || 'Studio Telemetry'}</span>
-          </div>
+          {product.image_url ? (
+            <div className="gallery-image-wrapper">
+              <img
+                src={product.image_url}
+                alt={product.name}
+                className="detail-product-img"
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.style.display = 'none';
+                }}
+              />
+              <span className="gallery-badge">{product.price_tag || 'Studio Telemetry'}</span>
+            </div>
+          ) : (
+            <div className="gallery-inner">
+              <Volume2 size={80} className="detail-gear-icon" />
+              <span className="gallery-badge">{product.price_tag || 'Studio Telemetry'}</span>
+            </div>
+          )}
         </div>
         
         <div className="product-details">
